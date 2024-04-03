@@ -1,0 +1,26 @@
+bool checkPallindrom(vector<int> v)
+{
+    int e=v.size()-1;
+    int s=0;
+    while(s<=e)
+    {
+        if(v[s]!=v[e])
+            return false;
+        s++;
+        e--;
+    }
+    return true;
+}
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        vector<int> v;
+        ListNode* temp=head;
+        while(temp!=NULL)
+        {
+            v.push_back(temp->val);
+            temp=temp->next;
+        }
+        return checkPallindrom(v);
+    }
+};
