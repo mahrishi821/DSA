@@ -1,0 +1,54 @@
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        int len = getLength(head);
+        return getDivide(head, len);
+    }
+
+private:
+    bool getDivide(ListNode*& head, int len) {
+        if (head == nullptr || head->next == nullptr)
+            return true;
+
+        int i = 0;
+        int mid = len / 2;
+        ListNode* node1 = head;
+        ListNode* node2 = head;
+        
+        // Move node2 to the middle of the list
+        while (i < mid) {
+            node2 = node2->next;
+            i++;
+        }
+        
+        // Reverse the second half of the list
+        ListNode* prev = nullptr;
+        ListNode* next = nullptr;
+        ListNode* curr = node2;
+        while (curr != nullptr) {
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+        node2 = prev;
+
+        // Compare the first half with the reversed second half
+        while (node1 != nullptr && node2 != nullptr) {
+            if (node1->val != node2->val)
+                return false;
+            node1 = node1->next;
+            node2 = node2->next;
+        }
+        return true;
+    }
+    
+    int getLength(ListNode* head) {
+        int count = 0;
+        while (head != nullptr) {
+            count++;
+            head = head->next;
+        }
+        return count;
+    }
+};
