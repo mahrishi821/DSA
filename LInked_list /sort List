@@ -1,0 +1,87 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+ 
+ListNode* midLinkedList(ListNode* head)
+ {
+    ListNode* slow=head;
+    ListNode* fast=head->next;
+
+    while(fast!=NULL && fast->next!=NULL)
+    {
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+    return slow;
+ }
+ ListNode* merge(ListNode* list1,ListNode* list2)
+ {
+    if(list1==NULL)
+        return list2;
+    if(list2==NULL)
+        return list1;
+    //
+    ListNode* num1=list1;
+    ListNode* num2=list2;
+    ListNode* temp=new ListNode(-1);
+    ListNode* ans=temp;
+    while(num1!=NULL && num2!=NULL )
+    {
+        if(num1->val<num2->val)
+        {
+            temp->next=num1;
+            temp=num1;
+            num1=num1->next;
+        }
+        else
+        {
+            temp->next=num2;
+            temp=num2;
+            num2=num2->next;
+        }
+    }
+        
+    while(num1!=NULL)
+    {
+        temp->next=num1;
+        temp=num1;
+        num1=num1->next;
+    }
+    while(num2!=NULL)
+    {
+        temp->next=num2;
+        temp=num2;
+        num2=num2->next;
+    }
+
+    ans=ans->next;
+    return ans;
+ }
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) {
+        if(head==NULL || head->next==NULL)
+            return head;
+        ListNode* num1=head;
+        ListNode* mid=midLinkedList(head);
+        ListNode* num2=mid->next;
+        mid->next=NULL;
+
+        // recursive call
+        num1=sortList(num1);
+        num2=sortList(num2);
+      
+        //merge LinkedList
+        ListNode* result=merge(num1,num2);
+
+        return result;
+
+    }
+};
