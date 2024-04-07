@@ -1,0 +1,86 @@
+// Online C++ compiler to run C++ program online
+
+#include <iostream>
+
+
+void push(int *&arr,int data, int &top,int size)
+{
+    if(top >=-1 && top<size)
+    {
+       top++;
+       arr[top]=data;
+    }
+    else
+    {
+        std::cout<<" \n stack overflow ";
+    }
+}
+void pop(int *&arr, int &top,int size)
+{
+    if(top >-1 && top<size)
+        top--;
+     else
+    {
+        std::cout<<" \n stack is empty ";
+    }
+}
+
+void topOfStack(int *&arr, int &top,int size)
+{
+    if(top >-1 && top<size)
+        std::cout<<"\n top of the stack is :: "<<arr[top];
+    else
+        std::cout<<"\n stack is empty ";
+    std::cout<<std::endl;
+}
+
+void isEmpty(int *&arr, int &top,int size)
+{
+    if(top >-1 && top<size)
+    {
+        std::cout<<"\n Stack is not empty";
+    }
+    else
+    {
+        std::cout<<"\n Stack is empty";
+    }
+    std::cout<<std::endl;
+}
+void isDisplay(int *arr,int top)
+{   
+    int i=0;
+    if(top==-1)
+    {
+        std::cout<<" \n Stack is empty \n";
+        return;
+    }
+    while(i<=top)
+    {
+        std::cout<<" "<<arr[i];
+        i++;
+    }
+    
+}
+int main() {
+    // Write C++ code here
+    int *arr =new int[10];
+    int top=-1;
+    int size=10;
+    
+    push(arr,20,top,size);
+    push(arr,13,top,size);
+    push(arr,15,top,size);
+    isDisplay(arr, top);
+    push(arr,85,top,size);
+    isDisplay(arr, top);
+    pop(arr,top,size);
+    isDisplay(arr, top);
+    topOfStack(arr,top,size);
+    pop(arr,top,size);
+    pop(arr,top,size);
+    pop(arr,top,size);
+    isDisplay(arr, top);
+    
+
+    return 0;
+}
