@@ -1,0 +1,21 @@
+#include<stack>
+class Solution {
+public:
+    void reverseString(vector<char>& s) {
+       stack <char> sStack;
+       int len=s.size();
+       int i=0;
+       while(i<len)
+    {
+        sStack.push(s[i]);
+        i++;
+    }
+    i=0;
+    while(!sStack.empty())
+    {
+        s[i]=sStack.top();
+        sStack.pop();
+        i++;
+    }
+    }
+};
