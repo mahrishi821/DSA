@@ -1,0 +1,21 @@
+#include <stack>
+#include<vector>
+#include<algorithm>
+void sortStack(std::stack<int> &s){
+	// Write your code here
+	std::vector<int> v;
+	while(!s.empty())
+	{
+		v.push_back(s.top());
+		s.pop();
+	}
+	sort(v.begin(),v.end());
+
+	int len=v.size()-1;
+	while(len>-1)
+	{
+		s.push(v[len]);
+		len--;
+	}
+
+}
