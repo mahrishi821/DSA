@@ -1,0 +1,34 @@
+#include <bits/stdc++.h> 
+#include <stack>
+class Solution {
+  public:
+    int checkRedundancy(string s) {
+        // code here
+         stack<int> h;
+    for(int i=0;i<s.length();i++)
+    {
+        if(s[i]=='(' || s[i]=='+' || s[i]=='-' || s[i]=='*' || s[i]=='/')
+            h.push(s[i]);
+        
+        else
+        {
+            if(s[i]==')')
+            {
+                    int redundant=1;
+                        while (h.top() != '(')
+                        {
+                            char el = h.top();
+                            if (el == '+' || el == '-' || el == '*' || el == '/')
+                                redundant = 0;
+                            h.pop();
+                        }
+                    if(redundant==1)
+                        return 1;
+                    h.pop();
+            }
+        }
+    }
+    return 0;
+        
+    }
+};
