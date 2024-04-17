@@ -1,0 +1,53 @@
+
+#include <iostream>
+#include <vector>
+#include <stack>
+#include <algorithm>
+
+using namespace std;
+
+class Solution {
+private:
+    vector<int> leftSmaller(vector<int>& arr, int len) {
+        stack<int> s;
+        vector<int> ans(len, -1);
+        for (int i = 0; i < len; i++) {
+            while (!s.empty() && arr[s.top()] >= arr[i]) {
+                s.pop();
+            }
+            if (!s.empty())
+                ans[i] = s.top();
+            s.push(i);
+        }
+        return ans;
+    }
+
+    vector<int> rightSmaller(vector<int>& arr, int len) {
+        stack<int> s;
+        vector<int> ans(len, len);
+        for (int i = len - 1; i >= 0; i--) {
+            while (!s.empty() && arr[s.top()] >= arr[i]) {
+                s.pop();
+            }
+            if (!s.empty())
+                ans[i] = s.top();
+            s.push(i);
+        }
+        return ans;
+    }
+
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        int len = heights.size();
+        vector<int> l = leftSmaller(heights, len);
+        vector<int> r = rightSmaller(heights, len);
+        int max_area = 0;
+        for (int i = 0; i < len; i++) {
+            int width = r[i] - l[i] - 1;
+            int area = heights[i] * width;
+            max_area = max(max_area, area);
+        }
+        return max_area;
+    }
+};
+
