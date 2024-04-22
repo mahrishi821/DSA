@@ -1,0 +1,64 @@
+#include <stack>
+#include <climits> // Include this header for INT_MAX
+
+using namespace std;
+
+class Solution{
+    stack<int> s;
+    int mini = INT_MAX; // Initialize mini with the maximum possible value
+    
+public:
+    /*returns min element from stack*/
+    int getMin(){
+        //Write your code here
+        if(s.empty())
+            return -1;
+        return mini;
+    }
+
+    /*returns popped element from stack*/
+    int pop(){
+        
+        if(s.empty())
+            return -1;
+        
+        
+        //Write your code here
+        int curr = s.top();
+        s.pop();
+        if(curr > mini)
+        {
+            return curr;
+        } 
+        else
+        {
+          int preMin=mini;
+          int val=(2*mini)-curr;
+          mini=val;
+          return preMin;
+        }
+      
+    }
+
+    /*push element x into the stack*/
+    void push(int x){
+        //Write your code here
+        if(s.empty())
+        {
+            s.push(x);
+            mini=x;
+        }
+        else
+        {
+            if(x < mini)
+            {
+                s.push(2 * x - mini);
+                mini = x;
+            } 
+            else
+            {
+                s.push(x);
+            }
+        }
+    }
+};
