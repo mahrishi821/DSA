@@ -1,0 +1,32 @@
+#include <queue>
+#include <stack>
+
+std::queue<int> modifyQueue(std::queue<int> q, int k) {
+    std::stack<int> s;
+    std::queue<int> dq;
+    int len = q.size();
+
+    // Reverse the first K elements and store them in stack
+    for (int i = 0; i < k; ++i) {
+        s.push(q.front());
+        q.pop();
+    }
+
+    // Store the remaining elements in dequeue
+    while (!q.empty()) {
+        dq.push(q.front());
+        q.pop();
+    }
+
+    // Reassemble the queue
+    for (int i = 0; i < len; ++i) {
+        if (i < k && !s.empty()) {
+            q.push(s.top());
+            s.pop();
+        } else {
+            q.push(dq.front());
+            dq.pop();
+        }
+    }
+    return q;
+}
