@@ -1,0 +1,22 @@
+#include <queue>
+#include <vector>
+
+class Solution {
+public:
+    std::queue<int> rev(std::queue<int> q) {
+        std::vector<int> v;
+        
+        // Transfer elements from the queue to the vector in reverse order
+        while (!q.empty()) {
+            v.push_back(q.front());
+            q.pop();
+        }
+        
+        // Transfer elements from the vector back to the queue
+        for (int i = v.size() - 1; i >= 0; --i) {
+            q.push(v[i]);
+        }
+        
+        return q;
+    }
+};
