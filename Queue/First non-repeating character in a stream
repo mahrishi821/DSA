@@ -1,0 +1,36 @@
+#include <queue>
+#include <unordered_map>
+class Solution {
+    public:
+
+std::string FirstNonRepeating(std::string A) {
+    std::queue<char> q;
+    std::unordered_map<char, int> freq;
+
+    std::string result;
+
+    for (char ch : A) 
+    {
+        q.push(ch);
+        freq[ch]++;
+        
+        while (!q.empty() && freq[q.front()] > 1) 
+        {
+            q.pop();
+        }
+        
+        if (q.empty()) 
+        {
+            result.push_back('#');
+        } 
+        
+        else 
+        {
+            result.push_back(q.front());
+        }
+    }
+
+    return result;
+}
+
+};
