@@ -1,0 +1,71 @@
+#include <iostream>
+#include <queue>
+
+class node {
+public:
+    int data;
+    node* left;
+    node* right;
+    node(int d) {
+        this->data = d;
+        this->left = NULL;
+        this->right = NULL;
+    }
+};
+
+node* buildTree(node* root) {
+    // for data for the root node
+    std::cout << "\n Enter the data to insert: ";
+    int data;
+    std::cin >> data;
+    if (data == -1)
+        return NULL;
+
+    root = new node(data); // Assigning a new node to root
+
+    std::cout << "Enter the data to insert to the left of tree " << data << ": ";
+    root->left = buildTree(root->left); // Pass root->left without modifying root
+
+    std::cout << "Enter the data to insert to the right of tree " << data << ": ";
+    root->right = buildTree(root->right); // Pass root->right without modifying root
+
+    return root;
+}
+
+void levelOrderTransversal(node* root) {
+    // for level Order Transversal
+    std::queue<node*> q;
+    q.push(root);
+    q.push(NULL);
+    while (!q.empty()) {
+        node* temp = q.front();
+
+        q.pop();
+        if (temp == NULL) {
+            std::cout << std::endl;
+            if (!q.empty()) {
+                q.push(NULL);
+            }
+        }
+        else {
+            std::cout << temp->data << " ";
+            if (temp->left)
+                q.push(temp->left);
+            if (temp->right)
+                q.push(temp->right);
+        }
+    }
+}
+
+int main() {
+    // Write C++ code here
+    // std::cout << "Try programiz.pro";
+    node* root = NULL;
+    root = buildTree(root);
+    // printing the traversal
+    //1 3 7 -1 -1 11 -1 -1 5 17 -1 -1 -1
+    std::cout << "Level Order Traversal: "<<std::endl;
+    levelOrderTransversal(root);
+
+    return 0;
+}
