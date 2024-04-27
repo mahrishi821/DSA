@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if(root==NULL)
+            return 0;
+        //recursive condition
+        int leftCount=maxDepth(root->left);
+        int rightCount=maxDepth(root->right);
+        
+        int ans=max(leftCount,rightCount)+1;
+        
+        return ans;
+        
+    }
+};
