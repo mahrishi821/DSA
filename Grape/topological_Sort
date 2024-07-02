@@ -1,0 +1,53 @@
+#include <bits/stdc++.h> 
+#include<unordered_map>
+#include<vector>
+#include<list>
+using namespace std;
+
+void topSort(int node,stack<int> &s,vector<bool> &visited,vector<vector<int>> &adj)
+{
+    visited[node]=true;
+
+    for(auto neighbour : adj[node])
+    {
+        if(!visited[neighbour])
+        {
+            topSort(neighbour,s, visited, adj);
+        }
+    }
+    s.push(node);
+}
+
+vector<int> topologicalSort(vector<vector<int>> &edges, int v, int e)  
+{
+    // Write your code here
+    vector<int> ans;
+    vector<vector<int>> adj(v);
+    for(int i=0;i<e;i++)
+    {
+        int u=edges[i][0];
+        int v=edges[i][1];
+
+        adj[u].push_back(v);
+    }
+    
+    vector<bool> visited(v);
+    stack<int> s;
+
+    for(int i=0;i<v;i++)
+    {
+        if(!visited[i])
+        {
+            topSort(i,s,visited,adj);
+        }
+    }
+
+    while(!s.empty())
+    {
+        ans.push_back(s.top());
+        s.pop();
+    }
+
+    return ans;
+    
+}
