@@ -1,0 +1,59 @@
+#include<queue>
+#include<vector>
+#include<list>
+#include<unordered_map>
+bool cycleBFS(int node , unordered_map<int,bool> visited, unordered_map<int,list<int>> adj,unordered_map<int ,int> parent)
+{
+ queue<int> q;
+ parent[node]=-1;
+ visited[node]=1;
+ q.push(node);
+ while(!q.empty())
+ {
+    int frontNode =q.front();
+    q.pop();
+    for(auto neighbour : adj[frontNode])
+    {
+        if(visited[neighbour]==true && neighbour!=parent[frontNode])
+            return true;
+        else if(!visited[neighbour])
+        {
+            q.push(neighbour);
+            visited[neighbour]=true;
+            parent[neighbour]=frontNode;
+        }
+    }
+ }
+ return false;
+}
+
+string cycleDetection (vector<vector<int>>& edges, int n, int m)
+{
+    // Write your code here.
+
+    unordered_map<int,list<int>> adj;
+
+    for(int i=0;i<m;i++)
+    {
+        int u=edges[i][0];
+        int v= edges[i][1];
+
+
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    unordered_map<int,bool> visited;
+    unordered_map<int ,int> parent;
+
+    for(int i=0;i<n;i++)
+    {
+        if (!visited[i]) {
+        bool ans = cycleBFS(i, visited, adj, parent);
+
+        if (ans == true)
+            return "Yes";
+        }
+    }
+     
+    return "No";
+}
