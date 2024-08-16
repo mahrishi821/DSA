@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int solve(vector<int>& nums,int n)
+    {
+        //using tabulation method
+        //step1
+        
+        // vector<vector<int>> dp(n+1,vector<int>(n+1,0));
+        vector<int> currRow(n+1,0);
+        vector<int> nextRow(n+1,0);
+…            }
+            nextRow=currRow;
+        }
+        return currRow[0];
+    }
+    int lengthOfLIS(vector<int>& nums) {
+        int n=nums.size();
+        return solve(nums,n);
+    }
+};
